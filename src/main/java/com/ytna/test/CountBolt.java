@@ -6,13 +6,7 @@ import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +15,7 @@ import java.util.Map;
  */
 public class CountBolt implements IRichBolt{
 
-    public static Logger LOG = LoggerFactory.getLogger(CountBolt.class);
+//    public static Logger LOG = LoggerFactory.getLogger(CountBolt.class);
     OutputCollector collector;
     Map<String, Integer> counts = new HashMap<String, Integer>();
 
@@ -37,9 +31,11 @@ public class CountBolt implements IRichBolt{
         if (count == null)
             count = 0;
         counts.put(word, ++count);
+        System.out.println(counts);
+        int t = 0;
 //        BufferedWriter out = null;
 //        try {
-//            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("F:/storm.txt" , true)));
+//            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("E:/storm.txt" , true)));
 //
 //            out.write(input.getSourceComponent()+"-->"+word+"\r\n");
 //        } catch (IOException e) {

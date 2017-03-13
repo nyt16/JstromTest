@@ -5,6 +5,7 @@ import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
+import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
@@ -24,6 +25,7 @@ public class SplitBolt implements IRichBolt {
     public void execute(Tuple input) {
         String sentence = input.getString(0);
         for (String word : sentence.split("\\s+")) {
+            System.out.println(word);
             collector.emit(new Values(word));
         }
     }
@@ -34,6 +36,7 @@ public class SplitBolt implements IRichBolt {
 
     @Override
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
+        declarer.declare(new Fields("word"));
     }
 
     @Override

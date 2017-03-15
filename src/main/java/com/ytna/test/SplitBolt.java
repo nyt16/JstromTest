@@ -22,12 +22,19 @@ public class SplitBolt implements IRichBolt {
     }
 
     @Override
-    public void execute(Tuple input) {
-        String sentence = input.getString(0);
-        for (String word : sentence.split("\\s+")) {
-            System.out.println(word);
-            collector.emit(new Values(word));
+        public void execute(Tuple input) {
+        byte[] bytete = input.getBinary(0);
+        try{
+            String sentence = new String(bytete,"UTF-8");
+            for (String word : sentence.split("\\s+")) {
+                System.out.println(word);
+                collector.emit(new Values(word));
+            }
+        }catch (Exception e){
+
         }
+//        byte sentence = input.getByte(0);
+//        System.out.println(bytete);
     }
 
     @Override

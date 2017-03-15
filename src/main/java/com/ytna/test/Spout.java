@@ -26,27 +26,27 @@ public class Spout implements IRichSpout {
     int arrayPosition;
     int arrayLength;
 
-//    private static final String[] CHOICES = {"marry had a little lamb whos fleese was white as snow",
-//            "and every where that marry went the lamb was sure to go",
-//            "one two three four five six seven eight nine ten",
-//            "this is a test of the emergency broadcast system this is only a test",
-//            "peter piper picked a peck of pickeled peppers",
-//            "JStorm is a distributed and fault-tolerant realtime computation system.",
-//            "Inspired by Apache Storm, JStorm has been completely rewritten in Java and provides many more enhanced features.",
-//            "JStorm has been widely used in many enterprise environments and proved robust and stable.",
-//            "JStorm provides a distributed programming framework very similar to Hadoop MapReduce.",
-//            "The developer only needs to compose his/her own pipe-lined computation logic by implementing the JStorm API",
-//            " which is fully compatible with Apache Storm API",
-//            "and submit the composed Topology to a working JStorm instance.",
-//            "Similar to Hadoop MapReduce, JStorm computes on a DAG (directed acyclic graph).",
-//            "Different from Hadoop MapReduce, a JStorm topology runs 24 * 7",
-//            "the very nature of its continuity abd 100% in-memory architecture ",
-//            "has been proved a particularly suitable solution for streaming data and real-time computation.",
-//            "JStorm guarantees fault-tolerance.",
-//            "Whenever a worker process crashes, ",
-//            "the scheduler embedded in the JStorm instance immediately spawns a new worker process to take the place of the failed one.",
-//            " The Acking framework provided by JStorm guarantees that every single piece of data will be processed at least once."};
-    private static final String[] CHOICES ={"a b","c d","a g"};
+    private static final String[] CHOICES = {"marry had a little lamb whos fleese was white as snow",
+            "and every where that marry went the lamb was sure to go",
+            "one two three four five six seven eight nine ten",
+            "this is a test of the emergency broadcast system this is only a test",
+            "peter piper picked a peck of pickeled peppers",
+            "JStorm is a distributed and fault-tolerant realtime computation system.",
+            "Inspired by Apache Storm, JStorm has been completely rewritten in Java and provides many more enhanced features.",
+            "JStorm has been widely used in many enterprise environments and proved robust and stable.",
+            "JStorm provides a distributed programming framework very similar to Hadoop MapReduce.",
+            "The developer only needs to compose his/her own pipe-lined computation logic by implementing the JStorm API",
+            " which is fully compatible with Apache Storm API",
+            "and submit the composed Topology to a working JStorm instance.",
+            "Similar to Hadoop MapReduce, JStorm computes on a DAG (directed acyclic graph).",
+            "Different from Hadoop MapReduce, a JStorm topology runs 24 * 7",
+            "the very nature of its continuity abd 100% in-memory architecture ",
+            "has been proved a particularly suitable solution for streaming data and real-time computation.",
+            "JStorm guarantees fault-tolerance.",
+            "Whenever a worker process crashes, ",
+            "the scheduler embedded in the JStorm instance immediately spawns a new worker process to take the place of the failed one.",
+            " The Acking framework provided by JStorm guarantees that every single piece of data will be processed at least once."};
+//    private static final String[] CHOICES ={"a b","c d","a g"};
 
     @Override
     public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
@@ -74,15 +74,15 @@ public class Spout implements IRichSpout {
 
     @Override
     public void nextTuple() {
-//        int n = sendNumPerNexttuple;
-//        while (--n >= 0) {
-        if(arrayPosition<=arrayLength-1){
-            String sentence = CHOICES[arrayPosition];
+        int n = sendNumPerNexttuple;
+        while (--n >= 0) {
+//        if(arrayPosition<=arrayLength-1){
+            String sentence = CHOICES[_rand.nextInt(CHOICES.length)];
             _collector.emit(new Values(sentence));
-            arrayPosition++;
-        }
-
+//            arrayPosition++;
 //        }
+
+        }
 
         Utils.sleep(1000);
     }

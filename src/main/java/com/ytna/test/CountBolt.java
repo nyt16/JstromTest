@@ -6,6 +6,7 @@ import backtype.storm.topology.IRichBolt;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Tuple;
+import com.ytna.test.redis.RedisDBUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,12 +28,17 @@ public class CountBolt implements IRichBolt{
     @Override
     public void execute(Tuple input) {
         String word = input.getString(0);
-        Integer count = counts.get(word);
-        if (count == null)
-            count = 0;
-        counts.put(word, ++count);
-        System.out.println(counts);
-        int t = 0;
+//        Integer count = counts.get(word);
+//        if (count == null)
+//            count = 0;
+        String countStr = RedisDBUtil.getHashValue("wordCount",word);
+        if(countStr == null ){
+            countStr = "0";
+        }
+        int countInt = Integer.parseInt(countStr);
+        RedisDBUtil.setHashValue("wordCount",word, String.valueOf(countInt + 1));
+//        counts.put(word, ++count);
+//        int t = 0;
 //        BufferedWriter out = null;
 //        try {
 //            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("E:/storm.txt" , true)));
